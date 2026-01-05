@@ -1,0 +1,36 @@
+{% extends "website/base.html" %}
+
+{% block title %}Lista de Funcionários{% endblock %}
+
+{% block conteudo %}
+<h1>Lista de Funcionários</h1>
+
+<a href="{% url 'website:cria_funcionario' %}">Cadastrar novo</a>
+
+<hr>
+
+{% if funcionarios %}
+<table border="1">
+    <tr>
+        <th>Nome</th>
+        <th>Sobrenome</th>
+        <th>Ações</th>
+    </tr>
+    {% for funcionario in funcionarios %}
+    <tr>
+        <td>{{ funcionario.nome }}</td>
+        <td>{{ funcionario.sobrenome }}</td>
+        <td>
+            <a href="{% url 'website:atualiza_funcionario' funcionario.id %}">Editar</a>
+            |
+            <a href="{% url 'website:deleta_funcionario' funcionario.id %}">Excluir</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>Nenhum funcionário cadastrado</p>
+{% endif %}
+{% endblock %}
+
+</html>

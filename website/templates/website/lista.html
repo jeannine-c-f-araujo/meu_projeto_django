@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Funcionários</title>
+
+    {% load primeira_letra %}
+</head>
+<body>
+
+<h1>Lista de Funcionários</h1>
+
+<a href="{% url 'website:cadastra_funcionario' %}">
+    Cadastrar novo
+</a>
+
+<hr>
+
+{% if funcionarios %}
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th></th>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Tempo de Serviço</th>
+                <th>Remuneração</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for funcionario in funcionarios %}
+            <tr>
+                <td>{{ funcionario.nome|primeira_letra }}</td>
+                <td>{{ funcionario.nome }}</td>
+                <td>{{ funcionario.sobrenome }}</td>
+                <td>{{ funcionario.tempo_de_servico }}</td>
+                <td>{{ funcionario.remuneracao }}</td>
+                <td class="text-center">
+                    <a class="btn btn-primary"
+                       href="{% url 'website:atualiza_funcionario' funcionario.id %}">
+                        Editar
+                    </a>
+                    <a class="btn btn-danger"
+                       href="{% url 'website:deleta_funcionario' funcionario.id %}">
+                        Excluir
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Nenhum funcionário cadastrado</p>
+{% endif %}
+
+</body>
+</html>
+
